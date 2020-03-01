@@ -107,7 +107,7 @@ function inquireEmployeeDetails() {
                 })
         }
         else if (choice.action === "I'm finished") {
-            fs.appendFile(outputPath, render(employees), function(err) {
+            fs.writeFile(outputPath, render(employees), function(err) {
                 if (err) {
                     return console.log(err)
                 }
