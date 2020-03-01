@@ -29,36 +29,36 @@ let memberQuestions = [
     {
         type: "input", 
         name: "name", 
-        message: "What's this team members' name?"
+        message: "What's this team member's name?"
     },
     {
         type: "input", 
         name: "id", 
-        message: "What's this team members' id?"
+        message: "What's this team member's id?"
     },
     {
         type: "input", 
         name: "email", 
-        message: "What's this team members' email?"
+        message: "What's this team member's email?"
     }
 ]
 
 const engineerQuestion = {
     type: "input", 
     name: "github", 
-    message: "What's this team members' GitHub username?"
+    message: "What's this team member's GitHub username?"
 }
 
 const internQuestion = {
     type: "input", 
     name: "school", 
-    message: "What's this team members' school?"
+    message: "What's this team member's school?"
 }
 
 const managerQuestion = {
     type: "input", 
     name: "officeNumber", 
-    message: "What's this team members' office number?"
+    message: "What's this team member's office number?"
 }
 
 console.log("Let's Build a Team!")
