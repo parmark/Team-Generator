@@ -23,7 +23,102 @@ const render = require('./lib/htmlRenderer');
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work!```
 
-const init = () => {};
+let employees = []
+
+let memberQuestions = [
+    {
+        type: "input", 
+        name: "name", 
+        message: "What's this team members' name?"
+    },
+    {
+        type: "input", 
+        name: "id", 
+        message: "What's this team members' id?"
+    },
+    {
+        type: "input", 
+        name: "email", 
+        message: "What's this team members' email?"
+    }
+]
+
+const engineerQuestion = {
+    type: "input", 
+    name: "github", 
+    message: "What's this team members' GitHub username?"
+}
+
+const internQuestion = {
+    type: "input", 
+    name: "school", 
+    message: "What's this team members' school?"
+}
+
+const managerQuestion = {
+    type: "input", 
+    name: "officeNumber", 
+    message: "What's this team members' office number?"
+}
+
+console.log("Let's Build a Team!")
+
+inquireEmployeeDetails()
+
+function inquireEmployeeDetails() {
+    inquirer
+    .prompt([
+        {
+            type: "list",
+            name: "action",
+            message: "What would you like to do?",
+            choices: ["Add a Manager", "Add a Engineer", "Add a Intern", "I'm finished"]
+        }
+    ])
+    .then(choice => {
+        if (choice.action === "Add a Manager") {
+            memberQuestions.push(managerQuestion)
+            inquirer
+                .prompt(memberQuestions)
+                .then(answer => {
+                    employees.push(new Manager(answer.name, answer.id, answer.email, answer.officeNumber))
+                    memberQuestions.pop()
+                    inquireEmployeeDetails()
+                })
+        }
+        else if (choice.action === "Add a Engineer") {
+            memberQuestions.push(engineerQuestion)
+            inquirer
+                .prompt(memberQuestions)
+                .then(answer => {
+                    employees.push(new Engineer(answer.name, answer.id, answer.email, answer.github))
+                    memberQuestions.pop()
+                    inquireEmployeeDetails()
+                })
+        }
+        else if (choice.action === "Add a Intern") {
+            memberQuestions.push(internQuestion)
+            inquirer
+                .prompt(memberQuestions)
+                .then(answer => {
+                    employees.push(new Intern(answer.name, answer.id, answer.email, answer.school))
+                    memberQuestions.pop()
+                    inquireEmployeeDetails()
+                })
+        }
+        else if (choice.action === "I'm finished") {
+            fs.appendFile(outputPath, render(employees), function(err) {
+                if (err) {
+                    return console.log(err)
+                }
+                console.log("LOGGED")
+            });
+        }
+        
+    })
+}
+
+// const init = () => {};
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -37,4 +132,4 @@ const init = () => {};
 // does not. The fs npm package may have methods to check if a directory exists, and they
 // may also have methods to create a directory that doesn't...
 
-init();
+// init();
